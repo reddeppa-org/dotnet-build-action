@@ -1,0 +1,16 @@
+name: Dotnet Build (Windows)
+description: Custom GitHub Action to run dotnet build on Windows
+inputs:
+  project-path:
+    description: 'Path to the .csproj or .sln file'
+    required: true
+  configuration:
+    description: 'Build configuration (e.g., Release or Debug)'
+    required: false
+    default: 'Release'
+runs:
+  using: 'composite'
+  steps:
+    - run: |
+        & "${{ github.action_path }}\entrypoint.ps1" -ProjectPath "${{ inputs.project-path }}" -Configuration "${{ inputs.configuration }}"
+      shell: pwsh
